@@ -1,7 +1,4 @@
 package es.ubu.lsi.model.multas;
 
+import javax.persistence.Entity;
 
-@Entity
-public class Vehiculo {
-
-}
