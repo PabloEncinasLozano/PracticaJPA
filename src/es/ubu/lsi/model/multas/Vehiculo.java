@@ -16,56 +16,36 @@ public class Vehiculo implements Serializable {
 	@Id
 	private String idauto;
 
-	private String ciudad;
-
-	private String cp;
-
-	private String direccion;
+	@Embedded
+	private DireccionPostal direccionPostal;
 
 	private String nombre;
-
-	public Vehiculo() {
-	}
-
+	
 	public String getIdauto() {
-		return this.idauto;
+		return idauto;
 	}
 
 	public void setIdauto(String idauto) {
 		this.idauto = idauto;
 	}
 
-	public String getCiudad() {
-		return this.ciudad;
+	public DireccionPostal getDireccionPostal() {
+		return direccionPostal;
 	}
 
-	public void setCiudad(String ciudad) {
-		this.ciudad = ciudad;
-	}
-
-	public String getCp() {
-		return this.cp;
-	}
-
-	public void setCp(String cp) {
-		this.cp = cp;
-	}
-
-	public String getDireccion() {
-		return this.direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
+	public void setDireccionPostal(DireccionPostal direccionPostal) {
+		this.direccionPostal = direccionPostal;
 	}
 
 	public String getNombre() {
-		return this.nombre;
+		return nombre;
 	}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+	
 
 }
 
