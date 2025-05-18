@@ -1,6 +1,11 @@
 package es.ubu.lsi.model.multas;
 
+
+
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
 
@@ -16,10 +21,28 @@ public class Vehiculo implements Serializable {
 	@Id
 	private String idauto;
 
-	@Embedded
-	private DireccionPostal direccionPostal;
 
 	private String nombre;
+
+
+	private Direccion direccion;
+	
+    @ManyToOne
+    @JoinColumn(name="IDAUTO")
+    private Conductor conductor;
+	
+	//----==Constructor==----
+	public Vehiculo(String idauto, String nombre, Direccion direccion) {
+		super();
+		this.idauto = idauto;
+		this.nombre = nombre;
+		this.direccion = direccion;
+	}
+	
+	
+	
+	
+	//----==Metodos==----
 	
 	public String getIdauto() {
 		return idauto;
@@ -29,12 +52,12 @@ public class Vehiculo implements Serializable {
 		this.idauto = idauto;
 	}
 
-	public DireccionPostal getDireccionPostal() {
-		return direccionPostal;
+	public Direccion getDireccion() {
+		return direccion;
 	}
 
-	public void setDireccionPostal(DireccionPostal direccionPostal) {
-		this.direccionPostal = direccionPostal;
+	public void setDireccion(Direccion direccion) {
+		this.direccion = direccion;
 	}
 
 	public String getNombre() {
