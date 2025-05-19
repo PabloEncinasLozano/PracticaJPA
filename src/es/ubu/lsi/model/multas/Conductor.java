@@ -3,6 +3,7 @@ package es.ubu.lsi.model.multas;
 import es.ubu.lsi.model.multas.Vehiculo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,7 +21,7 @@ public class Conductor {
 	
 	private Direccion direccion;
 	
-	private int puntos;
+	private BigDecimal puntos;
 	
 	@OneToOne
 	@JoinColumn(name="NIF")
@@ -30,7 +31,7 @@ public class Conductor {
 	private Set<Vehiculo> vehiculos = new HashSet<>();
 
 	//----==Constructor==----
-	public Conductor(String nif, String nombre, String apellido, Direccion direccion, int puntos, Set<Vehiculo> vehiculos) {
+	public Conductor(String nif, String nombre, String apellido, Direccion direccion, BigDecimal puntos, Set<Vehiculo> vehiculos) {
 		super();
 		this.nif = nif;
 		this.nombre = nombre;
@@ -78,11 +79,11 @@ public class Conductor {
 		this.direccion = direccion;
 	}
 
-	public int getPuntos() {
+	public BigDecimal getPuntos() {
 		return puntos;
 	}
 
-	public void setPuntos(int puntos) {
+	public void setPuntos(BigDecimal puntos) {
 		this.puntos = puntos;
 	}
 
