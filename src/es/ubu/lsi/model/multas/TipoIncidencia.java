@@ -19,8 +19,7 @@ public class TipoIncidencia{
 	
 	private int valor;
 	
-    @OneToMany
-    @JoinColumn(name = "ID")
+    @OneToMany(mappedBy = "tipoIncidencia")
     private Set<Incidencia> incidencias = new HashSet<>();
 
 	//----==Constructor==----	

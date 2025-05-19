@@ -16,13 +16,11 @@ public class IncidenciaId implements Serializable{
 	private Date fecha;
 	
 	
-	@OneToOne(mappedBy="conductor")
-	private Conductor conductor;
+	private String nif;
 	
 	//----==Constructor==----
 	public IncidenciaId() {}
 
-	
 	//----==Metodos==----
 	public Date getFecha() {
 		return fecha;
@@ -32,20 +30,18 @@ public class IncidenciaId implements Serializable{
 		this.fecha = fecha;
 	}
 
-	public Conductor getConductor() {
-		return conductor;
+	public String getNif() {
+		return nif;
 	}
 
-	public void setConductor(Conductor conductor) {
-		this.conductor = conductor;
+	public void setNif(String nif) {
+		this.nif = nif;
 	}
-
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(conductor, fecha);
+		return Objects.hash(fecha, nif);
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -56,12 +52,8 @@ public class IncidenciaId implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		IncidenciaId other = (IncidenciaId) obj;
-		return Objects.equals(conductor, other.conductor) && Objects.equals(fecha, other.fecha);
+		return Objects.equals(fecha, other.fecha) && Objects.equals(nif, other.nif);
 	}
-
-
-
-	
 	
 
 }

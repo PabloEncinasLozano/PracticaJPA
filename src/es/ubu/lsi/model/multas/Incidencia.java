@@ -6,7 +6,6 @@ import javax.persistence.*;
 public class Incidencia {
 	
 	@EmbeddedId
-	@Column(name = "ID")
 	private IncidenciaId id;
 	
 	@Lob

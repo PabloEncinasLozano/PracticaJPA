@@ -18,6 +18,7 @@ import es.ubu.lsi.model.multas.IncidenciaId;
 import es.ubu.lsi.model.multas.TipoIncidencia;
 import es.ubu.lsi.model.multas.Vehiculo;
 import es.ubu.lsi.service.PersistenceException;
+import es.ubu.lsi.service.multas.IncidentError;
 
 public class ServiceImpl extends PersistenceService implements Service{
 	
@@ -40,10 +41,10 @@ public class ServiceImpl extends PersistenceService implements Service{
 			TipoIncidenciaDAO tipoIncidenciaDao = new TipoIncidenciaDAO(em);
 			
 			//Tomar el nif del conductor a ver si existe
-			String nifDB = conductorDao.findById(nif);
+			Conductor conductor = conductorDao.findById(nif);
 			
 			//Lanzar excepcion si es null
-			if (nifDB==null) {
+			if (conductor==null) {
 				rollbackTransaction(em);
 				throw new IncidentError(IncidentError.NOT_EXIST_DRIVER);
 				
@@ -52,11 +53,6 @@ public class ServiceImpl extends PersistenceService implements Service{
 			
 			//Crear id para la nueva incidencia
 			IncidenciaId nuevaIncidenciaId = new IncidenciaId();
-			
-			//Conductor para la incidencia
-			Conductor conductor = conductorDao.getById(nif);
-			
-			
 			
 			nuevaIncidenciaId.setFecha(fecha);
 			nuevaIncidenciaId.setConductor(conductor);
