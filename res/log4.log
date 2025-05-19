@@ -1,0 +1,5 @@
+[DEBUG] 2025-05-19 21:31:06.843 [main] LoggerProviders - Logging Provider: org.jboss.logging.Log4j2LoggerProvider
+[DEBUG] 2025-05-19 21:31:07.099 [main] HibernatePersistenceProvider - Located and parsed 1 persistence units; checking each
+[DEBUG] 2025-05-19 21:31:07.099 [main] HibernatePersistenceProvider - Checking persistence-unit [name=PracticaFinal, explicit-provider=null] against incoming persistence unit name [Multas]
+[DEBUG] 2025-05-19 21:31:07.099 [main] HibernatePersistenceProvider - Excluding from consideration due to name mis-match
+[DEBUG] 2025-05-19 21:31:07.100 [main] HibernatePersistenceProvider - Found no matching persistence units

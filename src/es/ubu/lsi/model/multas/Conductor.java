@@ -27,18 +27,22 @@ public class Conductor {
 	@JoinColumn(name="NIF")
 	private Conductor conductor;
 	
-	@OneToMany(mappedBy="conductor")
-	private Set<Vehiculo> vehiculos = new HashSet<>();
+	@ManyToOne
+    @JoinColumn(name = "idauto")
+    private Vehiculo vehiculo;
+	
+	@OneToMany(mappedBy = "conductor")
+	private Set<Incidencia> incidencias = new HashSet<>();
 
 	//----==Constructor==----
-	public Conductor(String nif, String nombre, String apellido, DireccionPostal direccion, BigDecimal puntos, Set<Vehiculo> vehiculos) {
+	public Conductor(String nif, String nombre, String apellido, DireccionPostal direccion, BigDecimal puntos, Vehiculo vehiculos) {
 		super();
 		this.nif = nif;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.direccion = direccion;
 		this.puntos = puntos;
-		this.vehiculos = vehiculos;
+		this.vehiculo = vehiculos;
 	}
 	
 	
@@ -88,15 +92,24 @@ public class Conductor {
 	}
 
 
-	public Set<Vehiculo> getVehiculo() {
-		return vehiculos;
+	public Vehiculo getVehiculo() {
+		return vehiculo;
 	}
 
 
-	public void setVehiculo(Set<Vehiculo> vehiculos) {
-		this.vehiculos = vehiculos;
+	public void setVehiculo(Vehiculo vehiculo) {
+		this.vehiculo = vehiculo;
 	}
-	
+
+
+	public Set<Incidencia> getIncidencias() {
+		return incidencias;
+	}
+
+
+	public void setIncidencias(Set<Incidencia> incidencias) {
+		this.incidencias = incidencias;
+	}
 	
 
 }

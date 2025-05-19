@@ -15,6 +15,11 @@ public class Incidencia {
 	@JoinColumn(name="idtipo")
 	private TipoIncidencia tipoIncidencia;
 	
+	@ManyToOne
+	@MapsId("nif")
+	@JoinColumn(name = "nif")
+	private Conductor conductor;
+	
 	
 	//----==Constructor==----
 	public Incidencia(IncidenciaId id, String anotacion, TipoIncidencia tipoIncidencia) {
@@ -58,6 +63,16 @@ public class Incidencia {
 
 	public void setTipoIncidencia(TipoIncidencia tipoIncidencia) {
 		this.tipoIncidencia = tipoIncidencia;
+	}
+
+
+	public Conductor getConductor() {
+		return conductor;
+	}
+
+
+	public void setConductor(Conductor conductor) {
+		this.conductor = conductor;
 	}
 	
 	

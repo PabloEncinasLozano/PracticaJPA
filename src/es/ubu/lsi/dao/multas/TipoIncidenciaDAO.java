@@ -19,5 +19,11 @@ public class TipoIncidenciaDAO extends JpaDAO<TipoIncidencia, Long>{
 	public List<TipoIncidencia> findAll() {
 		return entityManager.createQuery("Select c From TipoIncidencia c",TipoIncidencia.class).getResultList();
 	}
+	
+	@Override
+	public TipoIncidencia findById(Long id) {
+		// TODO Auto-generated method stub
+		return super.findById(id);
+	}
 
 }

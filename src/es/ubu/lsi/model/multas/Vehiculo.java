@@ -2,6 +2,9 @@ package es.ubu.lsi.model.multas;
 
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
 
@@ -23,9 +26,10 @@ public class Vehiculo implements Serializable {
 
 	private DireccionPostal direccion;
 	
-    @ManyToOne
-    @JoinColumn(name="IDAUTO")
-    private Conductor conductor;
+    
+    @OneToMany(mappedBy="vehiculo")
+    private Set<Conductor> conductores = new HashSet<>();
+
 	
 	//----==Constructor==----
 	public Vehiculo(String idauto, String nombre, DireccionPostal direccion) {
@@ -64,7 +68,13 @@ public class Vehiculo implements Serializable {
 		this.nombre = nombre;
 	}
 
-	
+	public Set<Conductor> getConductores() {
+        return conductores;
+    }
+
+    public void setConductores(Set<Conductor> conductores) {
+        this.conductores = conductores;
+    }
 
 }
 
