@@ -41,7 +41,7 @@ public interface Service {
 	 * @throws PersistenceException si se produce un error
 	 * @see es.ubu.lsi.service.multas.IncidentError
 	 */
-	public void indultar(String nif) throws PersistenceException;
+	//public void indultar(String nif) throws PersistenceException;
 	
 	/**
 	 * Consulta vehiculos. En este caso en particular es importante recuperar 

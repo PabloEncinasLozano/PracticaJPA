@@ -19,7 +19,7 @@ public class Conductor {
 	
 	private String apellido;
 	
-	private Direccion direccion;
+	private DireccionPostal direccion;
 	
 	private BigDecimal puntos;
 	
@@ -31,7 +31,7 @@ public class Conductor {
 	private Set<Vehiculo> vehiculos = new HashSet<>();
 
 	//----==Constructor==----
-	public Conductor(String nif, String nombre, String apellido, Direccion direccion, BigDecimal puntos, Set<Vehiculo> vehiculos) {
+	public Conductor(String nif, String nombre, String apellido, DireccionPostal direccion, BigDecimal puntos, Set<Vehiculo> vehiculos) {
 		super();
 		this.nif = nif;
 		this.nombre = nombre;
@@ -71,11 +71,11 @@ public class Conductor {
 		this.apellido = apellido;
 	}
 
-	public Direccion getDireccion() {
+	public DireccionPostal getDireccionPostal() {
 		return direccion;
 	}
 
-	public void setDireccion(Direccion direccion) {
+	public void setDireccionPostal(DireccionPostal direccion) {
 		this.direccion = direccion;
 	}
 

@@ -24,14 +24,14 @@ public class Vehiculo implements Serializable {
 	private String nombre;
 
 
-	private Direccion direccion;
+	private DireccionPostal direccion;
 	
     @ManyToOne
     @JoinColumn(name="IDAUTO")
     private Conductor conductor;
 	
 	//----==Constructor==----
-	public Vehiculo(String idauto, String nombre, Direccion direccion) {
+	public Vehiculo(String idauto, String nombre, DireccionPostal direccion) {
 		super();
 		this.idauto = idauto;
 		this.nombre = nombre;
@@ -51,11 +51,11 @@ public class Vehiculo implements Serializable {
 		this.idauto = idauto;
 	}
 
-	public Direccion getDireccion() {
+	public DireccionPostal getDireccionPostal() {
 		return direccion;
 	}
 
-	public void setDireccion(Direccion direccion) {
+	public void setDireccionPostal(DireccionPostal direccion) {
 		this.direccion = direccion;
 	}
 

@@ -59,9 +59,6 @@ public class TipoIncidencia{
 	public void setValor(int valor) {
 		this.valor = valor;
 	}
-
-	
-
 	
 
 }

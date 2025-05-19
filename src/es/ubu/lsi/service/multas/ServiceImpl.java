@@ -9,6 +9,9 @@ import es.ubu.lsi.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import es.ubu.lsi.dao.multas.ConductorDAO;
+import es.ubu.lsi.dao.multas.IncidenciaDAO;
+import es.ubu.lsi.dao.multas.TipoIncidenciaDAO;
 import es.ubu.lsi.model.multas.Conductor;
 import es.ubu.lsi.model.multas.Incidencia;
 import es.ubu.lsi.model.multas.IncidenciaId;
@@ -16,7 +19,7 @@ import es.ubu.lsi.model.multas.TipoIncidencia;
 import es.ubu.lsi.model.multas.Vehiculo;
 import es.ubu.lsi.service.PersistenceException;
 
-public class ServiceImpl implements Service{
+public class ServiceImpl extends PersistenceService implements Service{
 	
 	/** Logger. */
 	private static final Logger logger = LoggerFactory
@@ -29,11 +32,12 @@ public class ServiceImpl implements Service{
 		EntityManager em = this.createSession();
 		
 		try {
-			em.beginTransaction();
+			beginTransaction(em);
 			
 			//Instanciar los DAO
 			ConductorDAO conductorDao = new ConductorDAO(em);
 			IncidenciaDAO incidenciaDao = new IncidenciaDAO(em);
+			TipoIncidenciaDAO tipoIncidenciaDao = new TipoIncidenciaDAO(em);
 			
 			//Tomar el nif del conductor a ver si existe
 			String nifDB = conductorDao.findById(nif);
@@ -41,7 +45,7 @@ public class ServiceImpl implements Service{
 			//Lanzar excepcion si es null
 			if (nifDB==null) {
 				rollbackTransaction(em);
-				throw new NOT_EXIST_DRIVER;
+				throw new IncidentError(IncidentError.NOT_EXIST_DRIVER);
 				
 			}
 			
@@ -50,19 +54,19 @@ public class ServiceImpl implements Service{
 			IncidenciaId nuevaIncidenciaId = new IncidenciaId();
 			
 			//Conductor para la incidencia
-			Conductor conducto = Conductor.getById(nif);
+			Conductor conductor = conductorDao.getById(nif);
 			
 			
 			
 			nuevaIncidenciaId.setFecha(fecha);
-			nuevaIncidenciaId.setConductor(nif);
+			nuevaIncidenciaId.setConductor(conductor);
 			
 			//Tomar el tipo de incidencia para la nueva incidencia
-			TipoIncidencia tipoNuevaIncidencia = TipoIncidenciaDao.findById(tipo);
+			TipoIncidencia tipoNuevaIncidencia = tipoIncidenciaDao.findById(tipo);
 			
 			if (tipoNuevaIncidencia == null) {
 				rollbackTransaction(em);
-				throw new NOT_EXIST_INCIDENT_TYPE;
+				throw new IncidentError(IncidentError.NOT_EXIST_INCIDENT_TYPE);
 			}
 			
 			//Crear la nueva incidencia
