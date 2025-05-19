@@ -1,6 +1,8 @@
 package es.ubu.lsi.service.multas;
 
+import java.math.BigDecimal;
 import java.util.Date;
+
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -46,7 +48,7 @@ public class ServiceImpl extends PersistenceService implements Service{
 			//Lanzar excepcion si es null
 			if (conductor==null) {
 				rollbackTransaction(em);
-				throw new IncidentError(IncidentError.NOT_EXIST_DRIVER);
+				throw new IncidentException(IncidentError.NOT_EXIST_DRIVER);
 				
 			}
 			
@@ -62,8 +64,12 @@ public class ServiceImpl extends PersistenceService implements Service{
 			
 			if (tipoNuevaIncidencia == null) {
 				rollbackTransaction(em);
-				throw new IncidentError(IncidentError.NOT_EXIST_INCIDENT_TYPE);
+				throw new IncidentException(IncidentError.NOT_EXIST_INCIDENT_TYPE);
 			}
+			
+			//Variables para controlar los puntos
+			BigDecimal puntoActuales = conductor.getPuntos();
+			int puntosIncidencia = tipoNuevaIncidencia.getValor();
 			
 			//Crear la nueva incidencia
 			Incidencia nuevaIncidencia = new Incidencia();
