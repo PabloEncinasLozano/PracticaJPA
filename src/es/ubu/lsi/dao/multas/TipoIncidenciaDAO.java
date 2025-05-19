@@ -8,7 +8,7 @@ import es.ubu.lsi.dao.JpaDAO;
 import es.ubu.lsi.model.multas.Conductor;
 import es.ubu.lsi.model.multas.TipoIncidencia;
 
-public class TipoIncidenciaDAO extends JpaDAO<TipoIncidencia, Integer>{
+public class TipoIncidenciaDAO extends JpaDAO<TipoIncidencia, Long>{
 
 	public TipoIncidenciaDAO(EntityManager em) {
 		super(em);

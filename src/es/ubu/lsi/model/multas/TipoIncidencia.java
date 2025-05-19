@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class TipoIncidencia{
 	
 	@Id
-	private int id;
+	private long id;
 	
 	private String descripcion;
 	
@@ -24,7 +24,7 @@ public class TipoIncidencia{
 
 	//----==Constructor==----	
 	
-	public TipoIncidencia(int id, String descripcion, int valor) {
+	public TipoIncidencia(long id, String descripcion, int valor) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
@@ -35,11 +35,11 @@ public class TipoIncidencia{
 	
 	//----==Metodos==----
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
