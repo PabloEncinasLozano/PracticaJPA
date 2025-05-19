@@ -32,6 +32,7 @@ public class TipoIncidencia{
 		this.valor = valor;
 	}
 	
+	public TipoIncidencia() {}
 	
 	//----==Metodos==----
 

@@ -9,9 +9,7 @@ import es.ubu.lsi.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import es.ubu.lsi.dao.invoice.FacturaDAO;
-import es.ubu.lsi.dao.invoice.LineaFacturaDAO;
-import es.ubu.lsi.model.invoice.LineasfacturaId;
+import es.ubu.lsi.model.multas.Conductor;
 import es.ubu.lsi.model.multas.Incidencia;
 import es.ubu.lsi.model.multas.IncidenciaId;
 import es.ubu.lsi.model.multas.TipoIncidencia;
@@ -51,6 +49,11 @@ public class ServiceImpl implements Service{
 			//Crear id para la nueva incidencia
 			IncidenciaId nuevaIncidenciaId = new IncidenciaId();
 			
+			//Conductor para la incidencia
+			Conductor conducto = Conductor.getById(nif);
+			
+			
+			
 			nuevaIncidenciaId.setFecha(fecha);
 			nuevaIncidenciaId.setConductor(nif);
 			
@@ -83,11 +86,14 @@ public class ServiceImpl implements Service{
 		
 	}
 
+	/*
 	@Override
 	public void indultar(String nif) throws PersistenceException {
 		// TODO Auto-generated method stub
 		
 	}
+	*/
+
 
 	@Override
 	public List<Vehiculo> consultarVehiculos() throws PersistenceException {

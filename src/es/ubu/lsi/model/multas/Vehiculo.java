@@ -1,7 +1,6 @@
 package es.ubu.lsi.model.multas;
 
 
-
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -39,7 +38,7 @@ public class Vehiculo implements Serializable {
 		this.direccion = direccion;
 	}
 	
-	
+	public Vehiculo() {}
 	
 	
 	//----==Metodos==----

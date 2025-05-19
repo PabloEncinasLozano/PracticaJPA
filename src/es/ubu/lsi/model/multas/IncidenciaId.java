@@ -15,6 +15,7 @@ public class IncidenciaId implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
 	
+	
 	@OneToOne(mappedBy="conductor")
 	private Conductor conductor;
 	

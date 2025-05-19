@@ -6,6 +6,7 @@ import javax.persistence.*;
 public class Incidencia {
 	
 	@EmbeddedId
+	@Column(name = "ID")
 	private IncidenciaId id;
 	
 	@Lob
@@ -23,6 +24,11 @@ public class Incidencia {
 		this.anotacion = anotacion;
 		this.tipoIncidencia = tipoIncidencia;
 	}
+	
+	
+	public Incidencia() {}
+	
+	
 	//----==Metodos==----
 
 

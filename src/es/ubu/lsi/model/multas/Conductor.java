@@ -39,6 +39,9 @@ public class Conductor {
 		this.puntos = puntos;
 		this.vehiculos = vehiculos;
 	}
+	
+	
+	public Conductor() {}
 
 
 	//----==Metodos==----
