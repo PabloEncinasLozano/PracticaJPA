@@ -29,7 +29,7 @@ public class ServiceImpl extends PersistenceService implements Service{
 			.getLogger(ServiceImpl.class);
 
 	@Override
-	public void insertarIncidencia(Date fecha, String nif, long tipo) throws PersistenceException {
+	public void insertarIncidencia(Date fecha, String nif, int tipo) throws PersistenceException {
 		// TODO Auto-generated method stub
 		
 		EntityManager em = this.createSession();
@@ -61,6 +61,7 @@ public class ServiceImpl extends PersistenceService implements Service{
 			
 			//Tomar el tipo de incidencia para la nueva incidencia
 			TipoIncidencia tipoNuevaIncidencia = tipoIncidenciaDao.findById(tipo);
+			
 			
 			if (tipoNuevaIncidencia == null) {
 				rollbackTransaction(em);
