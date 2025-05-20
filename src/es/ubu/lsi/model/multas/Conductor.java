@@ -23,9 +23,6 @@ public class Conductor {
 	
 	private BigDecimal puntos;
 	
-	@OneToOne
-	@JoinColumn(name="NIF")
-	private Conductor conductor;
 	
 	@ManyToOne
     @JoinColumn(name = "idauto")
