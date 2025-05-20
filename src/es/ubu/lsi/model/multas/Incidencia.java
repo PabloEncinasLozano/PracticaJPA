@@ -17,7 +17,7 @@ public class Incidencia {
 	
 	@ManyToOne
 	@MapsId("nif")
-	@JoinColumn(name = "nif")
+	@JoinColumn(name="nif")
 	private Conductor conductor;
 	
 	

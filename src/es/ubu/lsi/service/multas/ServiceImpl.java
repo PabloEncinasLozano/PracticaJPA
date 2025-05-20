@@ -52,6 +52,14 @@ public class ServiceImpl extends PersistenceService implements Service{
 				
 			}
 			
+			//Tomar el tipo de incidencia para la nueva incidencia
+			TipoIncidencia tipoNuevaIncidencia = tipoIncidenciaDao.findById(tipo);
+			
+			if (tipoNuevaIncidencia == null) {
+				rollbackTransaction(em);
+				throw new IncidentException(IncidentError.NOT_EXIST_INCIDENT_TYPE);
+			}
+			
 			
 			//Crear id para la nueva incidencia
 			IncidenciaId nuevaIncidenciaId = new IncidenciaId();
@@ -59,21 +67,12 @@ public class ServiceImpl extends PersistenceService implements Service{
 			nuevaIncidenciaId.setFecha(fecha);
 			nuevaIncidenciaId.setNif(nif);
 			
-			//Tomar el tipo de incidencia para la nueva incidencia
-			TipoIncidencia tipoNuevaIncidencia = tipoIncidenciaDao.findById(tipo);
-			
-			
-			if (tipoNuevaIncidencia == null) {
-				rollbackTransaction(em);
-				throw new IncidentException(IncidentError.NOT_EXIST_INCIDENT_TYPE);
-			}
-			
 			//Variables para controlar los puntos
 			BigDecimal puntosActuales = conductor.getPuntos();
 			int puntosIncidencia = tipoNuevaIncidencia.getValor();
 			
 			//Si no tiene puntos suficientes, salta excepcion
-			if (puntosActuales.intValue() < (puntosIncidencia)) {
+			if (puntosActuales.intValue() < puntosIncidencia) {
 				rollbackTransaction(em);
 				throw new IncidentException(IncidentError.NOT_AVAILABLE_POINTS);
 			}
@@ -85,6 +84,9 @@ public class ServiceImpl extends PersistenceService implements Service{
 			
 			nuevaIncidencia.setTipoIncidencia(tipoNuevaIncidencia);
 			nuevaIncidencia.setId(nuevaIncidenciaId);
+			nuevaIncidencia.setConductor(conductor);
+			
+			incidenciaDao.persist(nuevaIncidencia);
 			
 			
 			commitTransaction(em);
