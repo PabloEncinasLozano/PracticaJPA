@@ -10,7 +10,12 @@
 		<!-- <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider> -->
 		
 		<!-- COMPLETAR LISTA DE CLASES POR LOS ALUMNOS -->		
-		
+		<class>es.ubu.lsi.model.multas.Vehiculo</class>
+		<class>es.ubu.lsi.model.multas.Conductor</class>
+		<class>es.ubu.lsi.model.multas.Incidencia</class>
+		<class>es.ubu.lsi.model.multas.TipoIncidencia</class>
+		<class>es.ubu.lsi.model.multas.DireccionPostal</class>
+		<class>es.ubu.lsi.model.multas.IncidenciaPK</class>
 
 		<properties>
 			 

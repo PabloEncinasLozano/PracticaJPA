@@ -108,5 +108,11 @@ public class Conductor {
 		this.incidencias = incidencias;
 	}
 	
+	@Override
+	public String toString() {
+	    return "Conductor [nif=" + nif + ", nombre=" + nombre + ", apellido=" + apellido
+	            + ", direccionPostal=" + direccion + ", puntos=" + puntos + "]";
+	}
+
 
 }

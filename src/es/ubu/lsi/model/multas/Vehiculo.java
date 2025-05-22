@@ -27,7 +27,7 @@ public class Vehiculo implements Serializable {
 	private DireccionPostal direccion;
 	
     
-    @OneToMany(mappedBy="vehiculo")
+    @OneToMany(mappedBy="vehiculo", fetch = FetchType.LAZY)
     private Set<Conductor> conductores = new HashSet<>();
 
 	
@@ -75,6 +75,12 @@ public class Vehiculo implements Serializable {
     public void setConductores(Set<Conductor> conductores) {
         this.conductores = conductores;
     }
+    
+    @Override
+    public String toString() {
+        return "Vehiculo [idauto=" + idauto + ", nombre=" + nombre + ", direccionPostal=" + direccion + "]";
+    }
+
 
 }
 

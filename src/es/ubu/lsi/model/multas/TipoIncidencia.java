@@ -1,6 +1,6 @@
 package es.ubu.lsi.model.multas;
 
-import es.ubu.lsi.model.multas.IncidenciaId;
+import es.ubu.lsi.model.multas.IncidenciaPK;
 import es.ubu.lsi.model.multas.Incidencia;
 
 import java.io.Serializable;
@@ -59,5 +59,10 @@ public class TipoIncidencia{
 		this.valor = valor;
 	}
 	
+	@Override
+	public String toString() {
+	    return "TipoIncidencia [id=" + id + ", descripcion=" + descripcion + ", valor=" + valor + "]";
+	}
+
 
 }

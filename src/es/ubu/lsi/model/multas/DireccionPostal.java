@@ -71,5 +71,10 @@ public class DireccionPostal implements Serializable{
 				&& Objects.equals(direccion, other.direccion);
 	}
 	
+	@Override
+	public String toString() {
+	    return "DireccionPostal [direccion=" + direccion + ", codigoPostal=" + cp + ", ciudad=" + ciudad + "]";
+	}
+	
 
 }

@@ -1,11 +1,16 @@
 package es.ubu.lsi.service.multas;
 
 import java.math.BigDecimal;
+
 import java.util.Date;
 
 import java.util.List;
 
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
+import javax.persistence.Subgraph;
+import javax.persistence.TypedQuery;
+
 import es.ubu.lsi.service.*;
 
 import org.slf4j.Logger;
@@ -16,11 +21,10 @@ import es.ubu.lsi.dao.multas.IncidenciaDAO;
 import es.ubu.lsi.dao.multas.TipoIncidenciaDAO;
 import es.ubu.lsi.model.multas.Conductor;
 import es.ubu.lsi.model.multas.Incidencia;
-import es.ubu.lsi.model.multas.IncidenciaId;
+import es.ubu.lsi.model.multas.IncidenciaPK;
 import es.ubu.lsi.model.multas.TipoIncidencia;
 import es.ubu.lsi.model.multas.Vehiculo;
 import es.ubu.lsi.service.PersistenceException;
-import es.ubu.lsi.service.multas.IncidentError;
 
 public class ServiceImpl extends PersistenceService implements Service{
 	
@@ -62,7 +66,7 @@ public class ServiceImpl extends PersistenceService implements Service{
 			
 			
 			//Crear id para la nueva incidencia
-			IncidenciaId nuevaIncidenciaId = new IncidenciaId();
+			IncidenciaPK nuevaIncidenciaId = new IncidenciaPK();
 			
 			nuevaIncidenciaId.setFecha(fecha);
 			nuevaIncidenciaId.setNif(nif);
@@ -95,6 +99,7 @@ public class ServiceImpl extends PersistenceService implements Service{
 		} catch (PersistenceException e){
 			rollbackTransaction(em);
 			System.out.println(e.getMessage());
+			throw e;
 			
 		} finally {
 			// close resources
@@ -103,19 +108,41 @@ public class ServiceImpl extends PersistenceService implements Service{
 		
 	}
 
-	/*
-	@Override
-	public void indultar(String nif) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
-	}
-	*/
-
 
 	@Override
 	public List<Vehiculo> consultarVehiculos() throws PersistenceException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		EntityManager em = this.createSession();
+	    try {
+	    	// Grafo más simple
+	        EntityGraph<Vehiculo> grafo = em.createEntityGraph(Vehiculo.class);
+	        grafo.addAttributeNodes("conductores");
 
+	        Subgraph<Conductor> sgConductores = grafo.addSubgraph("conductores");
+	        sgConductores.addAttributeNodes("incidencias");
+
+	        Subgraph<Incidencia> sgIncidencias = sgConductores.addSubgraph("incidencias");
+	        sgIncidencias.addAttributeNodes("tipoIncidencia");
+
+	        TypedQuery<Vehiculo> query = em.createQuery("SELECT v FROM Vehiculo v", Vehiculo.class);
+	        query.setHint("jakarta.persistence.loadgraph", grafo);
+
+	        List<Vehiculo> resultado = query.getResultList();
+
+	        // Forzar carga antes de cerrar EntityManager
+	        for (Vehiculo v : resultado) {
+	            v.getConductores().size();
+	            for (Conductor c : v.getConductores()) {
+	                c.getIncidencias().size();
+	                for (Incidencia i : c.getIncidencias()) {
+	                    i.getTipoIncidencia(); // acceso forzado
+	                }
+	            }
+	        }
+
+	        return resultado;
+	        
+	    } finally {
+	        em.close();
+	    }
+	}
 }

@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Incidencia {
 	
 	@EmbeddedId
-	private IncidenciaId id;
+	private IncidenciaPK id;
 	
 	@Lob
 	private String anotacion;
@@ -22,7 +22,7 @@ public class Incidencia {
 	
 	
 	//----==Constructor==----
-	public Incidencia(IncidenciaId id, String anotacion, TipoIncidencia tipoIncidencia) {
+	public Incidencia(IncidenciaPK id, String anotacion, TipoIncidencia tipoIncidencia) {
 		super();
 		this.id = id;
 		this.anotacion = anotacion;
@@ -36,12 +36,12 @@ public class Incidencia {
 	//----==Metodos==----
 
 
-	public IncidenciaId getId() {
+	public IncidenciaPK getId() {
 		return id;
 	}
 
 
-	public void setId(IncidenciaId id) {
+	public void setId(IncidenciaPK id) {
 		this.id = id;
 	}
 
@@ -75,6 +75,11 @@ public class Incidencia {
 		this.conductor = conductor;
 	}
 	
-	
+	@Override
+	public String toString() {
+	    return "Incidencia [id=" + id + ", anotacion=" + anotacion
+	            + ", conductor=" + conductor + ", tipoIncidencia=" + tipoIncidencia + "]";
+	}
+
 
 }
