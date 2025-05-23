@@ -23,7 +23,7 @@ public class Vehiculo implements Serializable {
 
 	private String nombre;
 
-
+	@Embedded
 	private DireccionPostal direccion;
 	
     

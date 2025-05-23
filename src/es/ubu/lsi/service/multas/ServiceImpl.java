@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Subgraph;
 import javax.persistence.TypedQuery;
 
+
 import es.ubu.lsi.service.*;
 
 import org.slf4j.Logger;
@@ -113,33 +114,40 @@ public class ServiceImpl extends PersistenceService implements Service{
 	public List<Vehiculo> consultarVehiculos() throws PersistenceException {
 		EntityManager em = this.createSession();
 	    try {
-	    	// Grafo más simple
+	        
+	      //Grafo más simple
 	        EntityGraph<Vehiculo> grafo = em.createEntityGraph(Vehiculo.class);
 	        grafo.addAttributeNodes("conductores");
+	        
+	        //Se crea un subgrafo para los conductores, para seguir navegando desde ellos
+	        Subgraph<Conductor> subGrafoConductores = grafo.addSubgraph("conductores");
+	        subGrafoConductores.addAttributeNodes("incidencias");
+	        
+	        //Se crea un subgrafo adicional para las incidencias de cada conductor
+	        Subgraph<Incidencia> subGrafoIncidencias = subGrafoConductores.addSubgraph("incidencias");
+	        subGrafoIncidencias.addAttributeNodes("tipoIncidencia");
+	        
+	        //Se crea una consulta JPQL que selecciona todos los vehículos
+	        TypedQuery<Vehiculo> consulta = em.createQuery("select v from Vehiculo v", Vehiculo.class);
+	        
+	        //Le pasamos el grafo como pista de carga para que JPA sepa qué relaciones debe traer ya cargadas
+	        consulta.setHint("jakarta.persistence.loadgraph", grafo);
+	        //Se ejecuta la consulta y se obtienen todos los vehículos
+	        List<Vehiculo> resultado = consulta.getResultList();
 
-	        Subgraph<Conductor> sgConductores = grafo.addSubgraph("conductores");
-	        sgConductores.addAttributeNodes("incidencias");
-
-	        Subgraph<Incidencia> sgIncidencias = sgConductores.addSubgraph("incidencias");
-	        sgIncidencias.addAttributeNodes("tipoIncidencia");
-
-	        TypedQuery<Vehiculo> query = em.createQuery("SELECT v FROM Vehiculo v", Vehiculo.class);
-	        query.setHint("jakarta.persistence.loadgraph", grafo);
-
-	        List<Vehiculo> resultado = query.getResultList();
-
-	        // Forzar carga antes de cerrar EntityManager
-	        for (Vehiculo v : resultado) {
-	            v.getConductores().size();
-	            for (Conductor c : v.getConductores()) {
-	                c.getIncidencias().size();
-	                for (Incidencia i : c.getIncidencias()) {
-	                    i.getTipoIncidencia(); // acceso forzado
+	        // Forzar carga antes de cerrar
+	        for (Vehiculo vehiculo : resultado) {
+	            vehiculo.getConductores().size();
+	            for (Conductor conductor : vehiculo.getConductores()) {
+	                conductor.getIncidencias().size();
+	                for (Incidencia incidencia : conductor.getIncidencias()) {
+	                    incidencia.getTipoIncidencia();
 	                }
 	            }
 	        }
 
 	        return resultado;
+
 	        
 	    } finally {
 	        em.close();

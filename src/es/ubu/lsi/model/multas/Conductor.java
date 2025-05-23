@@ -19,6 +19,7 @@ public class Conductor {
 	
 	private String apellido;
 	
+	@Embedded
 	private DireccionPostal direccion;
 	
 	private BigDecimal puntos;
